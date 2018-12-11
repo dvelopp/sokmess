@@ -1,6 +1,7 @@
 package hello;
 
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
@@ -20,8 +21,16 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend(Application.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!");
-        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+      /*  IntStream.generate(() -> 1000).forEach(value -> {
+            rabbitTemplate.convertAndSend(Application.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!");
+            try {
+                receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });*/
+        Thread.sleep(1000000000);
+
     }
 
 }
